@@ -78,12 +78,12 @@ export default class DroppableTodolist extends React.Component {
     todotask.splice(event.target.value, 1);
     console.log(todotask);
 
-    // this.setState((state) => {
-    //   return {
-    //   todoindex: state.todoindex-1,
-    //   todotask
-    // }}
-    // )
+    this.setState((state) => {
+      return {
+      todoindex: state.todoindex-1,
+      todotask
+    }}
+    )
 
   }
 
