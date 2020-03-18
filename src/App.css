@@ -1,0 +1,203 @@
+@font-face {
+  /* font-family: 'Harry Potter';
+  src: url('http://www.fontsaddict.com/fontface/harry-potter.TTF') format("truetype"); */
+  font-family: "Harry Potter";
+  src:url("./HARRP___.TTF") format("truetype"); 
+}
+
+.underline {
+  text-decoration: line-through;
+}
+
+.undo-underline {
+  text-decoration: none;
+}
+
+body {
+  background-image: url("./img/harrypotter.jpg");
+  background-color: #cccccc;
+  background-size: cover;
+  font-family: "Harry Potter";
+ }
+
+.img {
+  width: 30px;
+  height: 30px;
+  margin-left: 100px;
+  margin-bottom: 10px;
+}
+
+.imgforlist {
+  width: 30px;
+  height: 30px;
+  margin-left: 100px;
+  margin-bottom: 10px;
+}
+
+.addlistBtn {
+  background: #800000;
+  border: solid 1px #800000;
+  border-radius: 3px;
+  color: linen;
+  font-family: 'Harry Potter';
+  padding-top: 5px;
+}
+
+ .title {
+  background-image: url("./img/texture-1647380_640.jpg"); /* 切り抜きたい画像 */
+  background-clip: text;       /* 画像を文字で切り抜く指定 */
+  color: transparent;
+  box-shadow: 2px 2px 4px;
+  margin: 0;
+  width: 100%;
+  padding-top: 10px;
+  text-align: center;
+ }
+
+.display {
+  display: inline;
+}
+
+.nodisplay {
+  display: none;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.closelist {
+  margin: 2px 25px;
+}
+
+.cardText {
+  border-radius: 5px;
+  border: 1px solid white;
+  box-shadow: 10px #282c34;
+}
+
+.task-card {
+  width: 250px;
+  margin-left: 32px;
+  padding: 5px;
+  background-image: url("./img/paper-1074131_640.jpg");
+  border-radius: 3px;
+}
+
+.addlistButton {
+  background: turquoise;
+  border: 1px solid green;
+}
+.addcardButton {
+  background: turquoise;
+  border: 1px solid green;
+}
+
+.addcardButton:hover {
+  opacity: 0.6;
+}
+
+.addaList {
+  color: #1f3134;;
+  width: 150px;
+  padding: 5px;
+}
+
+.addaList:hover {
+  background: #EBECF0;
+  height: 20px;
+  cursor : pointer;
+}
+
+.addaCard:hover {
+  background: #EBECF0;
+  height: 20px;
+  cursor : pointer;
+}
+
+.task-wrap {
+  display: flex;
+  margin: 15px;
+}
+
+.doing {
+  width: 165px;
+  height: 30px;
+  border-radius: 3px;
+  background-color: white;
+  margin: 10px;
+}
+
+.taskWrap {
+  display: flex;
+  width: 230px;
+  border-radius: 3px;
+  background-color: white;
+  margin-bottom: 10px;
+  word-break: keep-all;
+}
+
+.listinput {
+  width: 150px;
+  border: solid 2px turquoise;
+}
+
+.listUl {
+  width: 200px;
+  height: 100px;
+  padding: 10px;
+  margin-left: 20px;
+  border-radius: 5px;
+  background: lightblue;
+}
+.taskList {
+  list-style: none;
+  padding-left: 10px;
+  padding-top: 5px;
+  width: 200px;
+  word-break: keep-all;
+}
+
+.taskUl {
+  width: 250px;
+  margin-right: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background-image: url("./img/paper-1074131_640.jpg");
+
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
