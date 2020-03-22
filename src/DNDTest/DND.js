@@ -21,18 +21,24 @@ export default class Dndtest extends React.Component {
     super(props);
     this.state = {
       draggableIndex: 0,
+      todoindex: 0,
       listName: '',
       listlength: 0,
       userInput: '',
-      droppablelist: []
+      todoInput: '',
+      droppablelist: [],
+      todotask: []
     }
-    this.cardDelete = this.cardDelete.bind(this);
+    this.deleteListNode = this.deleteListNode.bind(this);
+    // this.deleteTask = this.deleteTask.bind(this);
+    // this.addTodoTask = this.addTodoTask.bind(this);
+    // this.taskInput = this.taskInput.bind(this);
   }
 
-  addTodo =(e)=> {
+  addList =(e)=> {
     e.preventDefault();
     if(this.state.userInput == '') {
-      alert("Please type task!");
+      alert("Please type list name!");
       return;
     }
 
@@ -48,11 +54,38 @@ export default class Dndtest extends React.Component {
   
   handleInput = (e)=> {
     this.setState({
-      userInput: e.target.value,
+      userInput: e.target.value
     })
   }
 
-  cardDelete (listlength) {
+  taskInput = (state)=> {
+    this.setState(()=> {return {todoInput: state}})
+  }
+
+  // deleteTask(listlength) {
+  //   const todotask = Object.assign([], this.state.todotask);
+  //   todotask.splice(listlength, 1);
+  //   this.setState((state)=> {
+  //     return {todoindex: state.todoindex-1,todotask}
+  //   });
+  // }
+
+  // addTodoTask(props) {
+  //   if(props == '') {
+  //     alert("Please type task todo!");
+  //     return;
+  //   }
+  //   this.setState((state)=>{
+  //     return {todoindex: state.todoindex+1}
+  //   });
+
+  //   const todotask = Object.assign([], this.state.todotask);
+  //   todotask.push(
+  //     {id: this.state.todoindex+1, task: this.state.userInput, listlength: this.state.todotask.length});
+  //   this.setState(()=> {return {todotask}});
+  // }
+
+  deleteListNode (listlength) {
     const droppablelist = Object.assign([], this.state.droppablelist);
     droppablelist.splice(listlength, 1);
 
@@ -82,17 +115,23 @@ export default class Dndtest extends React.Component {
     })
   }
 
+  //render's the list node
   render() {
     const item = this.state.droppablelist.filter(i=> i.id != null).map(i=> {
       return (
         <DroppableTodolist 
         id={"dr -"+i.id} key={"drlist" + i.id} listName={i.listName} CardNodeNo={i.id} 
-        deletefunc={(e)=>{this.cardDelete(i.listlength);}}
+        deleteListNode={(e)=>{this.deleteListNode(i.listlength);}}
+        deleteTask={(e)=>{this.deleteTask();}}
+        addTodoTask={(e)=>{this.addTodoTask();}}
+        todoInput ={(e)=>{this.taskInput();}}
+        todotask={this.state.todotask}
         >
         </DroppableTodolist>
       )
       });
-      
+    
+    const todo = this.state.todotask.filter
     return (
       <div>
         <div className="task-card">
@@ -104,7 +143,7 @@ export default class Dndtest extends React.Component {
               value={this.state.input}
               placeholder="Enter list title..." />
           <div className="flex">
-            <button id="addlist" className="addlistBtn mt-2 nodisplay" onClick={this.addTodo} >Add List</button>
+            <button id="addlist" className="addlistBtn mt-2 nodisplay" onClick={this.addList} >Add List</button>
             <button id="closelist" className="close mx-4 mt-2 nodisplay">&times;</button>
           </div>
         </div>
@@ -115,14 +154,4 @@ export default class Dndtest extends React.Component {
     );
   }
 }
- {/* <Droppable id="dra1" style={droppableStyle}>
-            <Draggable id="dro1" >
-              <div className="taskWrap">
-                  <li key={"todotasklist"} className="taskList">text</li>
-              <button type="button" className="close" >&times;</button>
-              </div></Draggable>
-            <Draggable id="dro2" ><Item>Some text</Item></Draggable>
-          </Droppable>
-          <Droppable id="dra2" style={droppableStyle}></Droppable>
-        </Wrapper> */}
-        
+ 

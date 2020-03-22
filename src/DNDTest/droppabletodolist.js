@@ -14,28 +14,38 @@ export default class DroppableTodolist extends React.Component {
       todoindex: -1
     }
     this.deletelist = this.deletelist.bind(this);
+    // this.deleteTodoTask = this.deleteTodoTask.bind(this);
+    // this.props.taskInput(this.state.todoInput);
   }
   
-  drop = (e)=> {
-    e.preventDefault();
-    const data = e.dataTransfer.getData('transfer');
-    const target = this.state.dummyInput;
-    e.target.parentNode.insertBefore(document.getElementById(data),document.getElementById(target));
+  // drop = (e)=> {
+  //   e.preventDefault();
+  //   const data = e.dataTransfer.getData('transfer');
+  //   const target = this.state.dummyInput;
+  //   e.target.parentNode.insertBefore(document.getElementById(data),document.getElementById(target));
     
+  // }
+
+  // allowDrop = (e)=> {
+  //   e.preventDefault();
+  //   this.setState({dummyInput: e.target.id});
+  // }
+
+  // drag = (e)=> {
+  //   e.dataTransfer.setData('transfer', e.target.id);
+  //   console.log(e.target.id);
+  // }
+
+  // noAlowDrop = (e)=> {
+  //   e.stopPropagation();
+  // }
+
+  addTodoTaskNode() {
+    return this.props.addTodoTask(this.state.todoInput);
   }
 
-  allowDrop = (e)=> {
-    e.preventDefault();
-    this.setState({dummyInput: e.target.id});
-  }
-
-  drag = (e)=> {
-    e.dataTransfer.setData('transfer', e.target.id);
-    console.log(e.target.id);
-  }
-
-  noAlowDrop = (e)=> {
-    e.stopPropagation();
+  returnTodoInput() {
+    return this.props.todoInput(this.state.todoInput);
   }
 
   addTodo =(e)=> {
@@ -52,6 +62,7 @@ export default class DroppableTodolist extends React.Component {
     const todotask = Object.assign([], this.state.todotask);
     todotask.push({id: this.state.todoindex+1, task: this.state.todoInput, isDone: 1});
     this.setState(()=> {return {todotask}});
+    console.log(todotask);
   }
   
   handleInput = (e)=> {
@@ -72,30 +83,21 @@ export default class DroppableTodolist extends React.Component {
     addbtnNode.classList.remove('nodisplay');
   }
 
-  deleteTask = (event)=> {
-    　
+  deleteTodoTask = (e)=> {
+
     const todotask = Object.assign([], this.state.todotask);
-    todotask.splice(event.target.value, 1);
+    todotask.splice(e.target.id, 1);
     console.log(todotask);
-
-    this.setState((state) => {
-      return {
-      todoindex: state.todoindex-1,
-      todotask
-    }}
-    )
-
-  }
-
-  underline = (e)=> {
-    let id=e.target.id;
-    let obj = document.getElementById(id);
-    obj.classList.add('underline');
     
+    this.setState({
+      todoindex: this.state.todoindex-1,
+      todotask
+    }) 
   }
 
+  //call Parent's method
   deletelist () {
-    return this.props.deletefunc();
+    return this.props.deleteListNode();
   }
 
   componentDidMount() {
@@ -115,31 +117,38 @@ export default class DroppableTodolist extends React.Component {
 
   render() {
     return (
-      <div  id={"taskcard" +this.props.CardNodeNo} onDrop={this.drop} onDragOver={this.allowDrop} >
+      // <div  id={"taskcard" +this.props.CardNodeNo} onDrop={this.drop} onDragOver={this.allowDrop} >
+      <div  id={"taskcard" +this.props.CardNodeNo}  >
         <ul className="taskUl">
           <img class="imgforlist" src={img} />
           <button id="closeCardNode" className="close ml-3 mr-1 mt-2" onClick={(e)=>{this.deletelist();}}>&times;</button>
           <h3 style={{textAlign: 'center', margin: 0}}>{this.props.listName}</h3>
           <hr />
-          {this.state.todotask.filter(i=>i.task != null).map(i=> {
+
+          {/* Below is a task card part: */}
+          {/* {this.props.taskarry} */}
+          {this.state.todotask.filter(i=>i.task != '').map(i=> {
             return (
-            <div key={i.id} id={this.props.id+ "-"+i.id} draggable="true" onDragStart={this.drag} onDragOver={this.noAlowDrop}>
+            // <div key={i.id} id={"task"+this.props.CardNodeNo+ "-"+i.id} draggable="true" onDragStart={this.drag} onDragOver={this.noAlowDrop}>
+            <div key={i.id} id={"task"+this.props.CardNodeNo+ "-"+i.id} >
             <div className="taskWrap">
               <li key={"todotasklist" + i.id} className="taskList">
                 <p id={"p-"+this.state.CardNodeNo} style={{overflowWrap: 'break-word',
-        　　　    wordWrap: 'break-word', margin: 0}} onClick={this.underline}>{i.task}</p>
+        　　　    wordWrap: 'break-word', margin: 0}} >{i.task}</p>
               </li>
-              <button type="button" className="close" value={this.state.todoindex} onClick={this.deleteTask} style={{paddingTop: 7}}>&times;</button>
+              <button type="button" className="close" id={i.id} value={i.listlength} onClick={this.deleteTodoTask} style={{paddingTop: 7}}>&times;</button>
             </div>
             </div>
             )
             })
           }
+          {/* until above this line */}
+
           <p id={"plusAdd"+this.props.CardNodeNo} className="addaCard">+ Add a card</p>
           <textarea
             id={"textInput"+this.props.CardNodeNo}
             className="form-control nodisplay"
-            onChange={this.handleInput}
+            onChange={(e)=> {this.handleInput(e);}}
             value={this.state.todoInput}
             style={{marginBottom: 10}}
             placeholder="Type your new todo!" />
@@ -149,7 +158,7 @@ export default class DroppableTodolist extends React.Component {
               <button 
               id={"addCardButton"+this.props.CardNodeNo} 
               className ="addlistBtn nodisplay" 
-              onClick={this.addTodo}
+              onClick={(e)=>{this.addTodo();}}
               >Add Card</button>
               <button id={"closeBtn"+this.props.CardNodeNo} type="button" className="close nodisplay" style={{fontSize: '35px', marginLeft: 10}} onClick={this.btnClose}>&times;</button>
             
@@ -160,27 +169,5 @@ export default class DroppableTodolist extends React.Component {
     );
   }
 }
-// <div id={this.props.id} onDrop={this.drop} onDragOver={this.allowDrop} style={this.props.style}>
-      //   {this.props.children}
-      // </div>
-{/* <div className="task-card" id={this.props.CardNodeNo} onDrop={this.drop} onDragOver={this.allowDrop} style={this.props.style}>
-        <ul className="taskUl">
-          <p >{this.props.listName}</p>
-          <hr />
-          
-          {item}
-          <p id={"plusAdd"+this.props.CardNodeNo} className="addaCard">+ Add a card</p>
-          <textarea
-            id={"textInput"+this.props.CardNodeNo}
-            className="cardText nodisplay"
-            onChange={this.handleInput}
-            value={this.state.todoInput}
-            placeholder="Type your new todo!" />
-          <div className="flex" style={{display: 'flex'}}>
-            <button 
-            id={"addCardButton"+this.props.CardNodeNo} className ="addcardButton nodisplay" onClick={this.addTodo}>Add Card</button>
-            <button id={"closeBtn"+this.props.CardNodeNo} type="button" className="close nodisplay" style={{fontSize: '35px', marginLeft:'10px'}} onClick={this.btnClose}>&times;</button>
-          </div>
-          </ul>
-      </div> */}
+
 
