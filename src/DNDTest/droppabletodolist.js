@@ -11,10 +11,10 @@ export default class DroppableTodolist extends React.Component {
       todoInput: '',
       dummyInput: '',
       todotask: [],
-      todoindex: -1
+      todoindex: 0
     }
     this.deletelist = this.deletelist.bind(this);
-    // this.deleteTodoTask = this.deleteTodoTask.bind(this);
+    this.deleteTodoTask = this.deleteTodoTask.bind(this);
     // this.props.taskInput(this.state.todoInput);
   }
   
@@ -40,13 +40,13 @@ export default class DroppableTodolist extends React.Component {
   //   e.stopPropagation();
   // }
 
-  addTodoTaskNode() {
-    return this.props.addTodoTask(this.state.todoInput);
-  }
+  // addTodoTaskNode() {
+  //   return this.props.addTodoTask(this.state.todoInput);
+  // }
 
-  returnTodoInput() {
-    return this.props.todoInput(this.state.todoInput);
-  }
+  // returnTodoInput() {
+  //   return this.props.todoInput(this.state.todoInput);
+  // }
 
   addTodo =(e)=> {
     if(this.state.todoInput == '') {
@@ -60,7 +60,7 @@ export default class DroppableTodolist extends React.Component {
     });
 
     const todotask = Object.assign([], this.state.todotask);
-    todotask.push({id: this.state.todoindex+1, task: this.state.todoInput, isDone: 1});
+    todotask.push({id: this.state.todoindex+1, task: this.state.todoInput, tasklength: this.state.todotask.length});
     this.setState(()=> {return {todotask}});
     console.log(todotask);
   }
@@ -83,12 +83,17 @@ export default class DroppableTodolist extends React.Component {
     addbtnNode.classList.remove('nodisplay');
   }
 
-  deleteTodoTask = (e)=> {
-
+  deleteTodoTask = (length)=> {
     const todotask = Object.assign([], this.state.todotask);
-    todotask.splice(e.target.id, 1);
-    console.log(todotask);
-    
+    todotask.splice(length, 1);
+
+    if(length < this.state.todoindex) {
+      for(let i=length; i<this.state.todoindex-1; i++) {
+        todotask[i].tasklength = i;
+        // console.log(todotask[i].tasklength);
+      }
+    }
+
     this.setState({
       todoindex: this.state.todoindex-1,
       todotask
@@ -136,7 +141,8 @@ export default class DroppableTodolist extends React.Component {
                 <p id={"p-"+this.state.CardNodeNo} style={{overflowWrap: 'break-word',
         　　　    wordWrap: 'break-word', margin: 0}} >{i.task}</p>
               </li>
-              <button type="button" className="close" id={i.id} value={i.listlength} onClick={this.deleteTodoTask} style={{paddingTop: 7}}>&times;</button>
+              <button type="button" className="close" id={i.tasklength} value={i.tasklength} 
+              onClick={(e)=>{this.deleteTodoTask(i.tasklength)}} style={{paddingTop: 7}}>&times;</button>
             </div>
             </div>
             )
