@@ -1,6 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-##Description of this web app
+## Description of this web app
 
 This is a magical todo task management web app called `Magical Meminisse` which of the name based on Latin for `memorizing`.
 
@@ -8,13 +8,13 @@ Here is the demo page: [DEMO](https://magical-meminissee.netlify.com/)
 
 Here is how to play with your Magical Meminisse: 
 
-##Installation
+## Installation
 You need to have node and npm installed on your computer
 
-##Clone
+## Clone
 Clone this repo using git clone https://github.com/yuriko-pixel/Magical_Meminisse.git
 
-##Available Scripts
+## Available Scripts
 In the project directory, you can run:
 
 `npm start`
@@ -46,14 +46,14 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use eject. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-##What you can do and cannot
-
-#What you can do:
+## What you can do and cannot
+ 
+# What you can do:
 
 1. Create list and create task card into it
 2. Delete the task card and list
 
-#What you cannot do (yet):
+# What you cannot do (yet):
 
 1. Drag and drop the task to the other list 
 2. Delete the task card where that task was not originally created
