@@ -4,6 +4,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 This is a magical todo task management web app called `Magical Meminisse` which of the name based on Latin for `memorizing`.
 
+Here is the demo page: [DEMO](https://magical-meminissee.netlify.com/)
+
 Here is how to play with your Magical Meminisse: 
 
 ##Installation
